@@ -12,12 +12,19 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProfilesSteamIdImport } from './routes/profiles/$steamId'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfilesSteamIdRoute = ProfilesSteamIdImport.update({
+  id: '/profiles/$steamId',
+  path: '/profiles/$steamId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/profiles/$steamId': {
+      id: '/profiles/$steamId'
+      path: '/profiles/$steamId'
+      fullPath: '/profiles/$steamId'
+      preLoaderRoute: typeof ProfilesSteamIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/profiles/$steamId': typeof ProfilesSteamIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/profiles/$steamId': typeof ProfilesSteamIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/profiles/$steamId': typeof ProfilesSteamIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/profiles/$steamId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/profiles/$steamId'
+  id: '__root__' | '/' | '/profiles/$steamId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProfilesSteamIdRoute: typeof ProfilesSteamIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProfilesSteamIdRoute: ProfilesSteamIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/profiles/$steamId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/profiles/$steamId": {
+      "filePath": "profiles/$steamId.tsx"
     }
   }
 }
