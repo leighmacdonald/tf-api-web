@@ -1,4 +1,4 @@
-import type { AnyFieldApi } from '@tanstack/react-form'
+import type { AnyFieldApi } from '@tanstack/react-form';
 
 export const FieldInfo = ({ field }: { field: AnyFieldApi }) => (
     <>

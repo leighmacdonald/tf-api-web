@@ -1,11 +1,12 @@
-import createClient from "openapi-fetch";
-import type {paths} from "@/schema.ts";
+import type { paths } from '@/schema.ts';
+import createClient from 'openapi-fetch';
 
-const client = createClient<paths>({ baseUrl: import.meta.env.REACT_APP_API_BASE_URL  ?? "http://localhost:8888", });
-
+const client = createClient<paths>({
+    baseUrl: import.meta.env.REACT_APP_API_BASE_URL ?? 'http://localhost:8888'
+});
 
 export const resolveSteamID = async (query: string) => {
-    const {data, error} = await client.GET("/api/steam/steamid", {
+    const { data, error } = await client.GET('/api/steam/steamid', {
         params: {
             query: {
                 steamid: query
@@ -16,13 +17,11 @@ export const resolveSteamID = async (query: string) => {
         throw error;
     }
 
-    return data
-}
-
-
+    return data;
+};
 
 export const steamSummary = async (query: string) => {
-    const {data, error} = await client.GET("/api/steam/summary", {
+    const { data, error } = await client.GET('/api/steam/summary', {
         params: {
             query: {
                 steamids: query
@@ -33,5 +32,5 @@ export const steamSummary = async (query: string) => {
         throw error;
     }
 
-    return data
-}
+    return data;
+};

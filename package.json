@@ -8,7 +8,10 @@
     "build": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run",
-    "schema": "bunx openapi-typescript ./schema.json -o src/schema.ts"
+    "schema": "bunx openapi-typescript ./schema.json -o src/schema.ts",
+    "prettier": "npx prettier src/**/*.{ts,tsx} --write",
+    "check": "npx prettier src/**/*.{ts,tsx} --check",
+    "eslint-config-prettier": "npx eslint-config-prettier src/main.tsx"
   },
   "dependencies": {
     "@node-steam/id": "^1.2.0",
@@ -30,14 +33,22 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.25.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/bun": "^1.2.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.0.0",
     "jsdom": "^26.0.0",
+    "prettier": "3.5.3",
     "typescript": "^5.7.2",
+    "typescript-eslint": "^8.31.1",
     "vite": "^6.1.0",
     "vitest": "^3.0.5",
     "web-vitals": "^4.2.4"
