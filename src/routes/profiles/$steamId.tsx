@@ -1,5 +1,6 @@
 import {createFileRoute} from '@tanstack/react-router'
 import {steamSummary} from "@/lib/api.ts";
+import { HashAvatar } from '@/components/HashAvatar.tsx';
 
 export const Route = createFileRoute('/profiles/$steamId')({
     component: ProfilePage,
@@ -23,7 +24,7 @@ function ProfilePage() {
     return (
         <div className="mx-auto max-w-md overflow-hidden rounded-xl shadow-md md:max-w-2xl bg-[#282c34]">
             <div className="text-center border-amber-300 border-4">
-                <img src={`https://avatars.fastly.steamstatic.com/${summary.avatarhash}_full.jpg`} alt="profile image" />
+                <HashAvatar hash={summary.avatarhash ?? 'fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb'} />
             </div>
             <div className="text-center border-amber-300 border-4">
                 <header

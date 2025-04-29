@@ -9,7 +9,8 @@ import eslintConfigPrettier from "eslint-config-prettier/flat";
 export default defineConfig([
     {files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"], plugins: {js}, extends: ["js/recommended"]},
     {files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"], languageOptions: {globals: globals.browser}},
-    tseslint.configs.recommended,
+    tseslint.configs.strict,
+    tseslint.configs.stylistic,
     pluginReact.configs.flat.recommended,
     eslintConfigPrettier
 ])

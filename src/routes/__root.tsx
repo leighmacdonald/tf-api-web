@@ -1,13 +1,21 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import Header from '../components/Header';
+import { Container } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import { TopNav } from '@/components/TopNav.tsx';
+
 
 export const Route = createRootRoute({
     component: () => (
         <>
-            <Header />
 
-            <Outlet />
+
+            <Container>
+                <Stack spacing={3}>
+                    <TopNav />
+                    <Outlet />
+                </Stack>
+            </Container>
             <TanStackRouterDevtools />
         </>
     )

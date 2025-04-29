@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { FieldInfo } from '@/components/FieldInfo.tsx';
-import { InlineCodeBlock } from '@/components/InlineCodeBlock.tsx';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { resolveSteamID } from '@/lib/api.ts';
 import { ID } from '@node-steam/id';
 import { useForm } from '@tanstack/react-form';
 import { useNavigate } from '@tanstack/react-router';
+import { Button, Checkbox, FormControlLabel, FormGroup, Grid } from '@mui/material';
+import Input from '@mui/material/Input';
 
 interface OmniQueryValues {
     query: string;
@@ -40,7 +39,7 @@ const findSteamID = async (query: string) => {
 
     const idProfile = regexSteamProfileURL.exec(query);
     if (idProfile) {
-        const profileID = new ID(   idProfile[1]);
+        const profileID = new ID(idProfile[1]);
         if (profileID.isLobby() || profileID.isGroupChat()) {
             throw 'Invalid account type';
         }
@@ -62,6 +61,7 @@ const findSteamID = async (query: string) => {
 export const OmniQuery = () => {
     const [results, setResults] = useState<string>('');
     const navigate = useNavigate();
+    const [isStatus, setIsStatus] = useState<boolean>(false);
 
     const form = useForm({
         defaultValues: defaultQuery,
@@ -87,15 +87,15 @@ export const OmniQuery = () => {
     });
 
     return (
-        <>
-            <form
-                onSubmit={async (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    await form.handleSubmit();
-                }}
-            >
-                <div className="flex w-full max-w-xl items-center space-x-2">
+        <form
+            onSubmit={async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                await form.handleSubmit();
+            }}
+        >
+            <Grid container spacing={2}>
+                <Grid size={9}>
                     <form.Field
                         name={'query'}
                         validators={{
@@ -111,6 +111,7 @@ export const OmniQuery = () => {
 
                                 if (lvalue.startsWith('')) {
                                     if (!/[abcdefghijklmnopqrstuvwxyz]{2,}/.test(value)) {
+                                        return '2 alpha numeric characters minimum';
                                     }
 
                                     return undefined;
@@ -125,6 +126,8 @@ export const OmniQuery = () => {
                                         onBlur={field.handleBlur}
                                         onChange={(e) => field.handleChange(e.target.value)}
                                         type="query"
+                                        fullWidth={true}
+                                        multiline={isStatus}
                                         placeholder="steamid"
                                     />
                                     <FieldInfo field={field} />
@@ -132,20 +135,28 @@ export const OmniQuery = () => {
                             );
                         }}
                     />
+                </Grid>
 
+                <Grid size={1}>
+                    <FormGroup>
+                        <FormControlLabel control={<Checkbox defaultChecked onChange={(_, checked) => {
+                            setIsStatus(checked)
+                        }} />} label="Status" />
+                    </FormGroup>
+                </Grid>
+
+                <Grid size={2}>
                     <form.Subscribe
                         selector={(state) => [state.canSubmit, state.isSubmitting]}
                         children={([canSubmit, isSubmitting]) => (
-                            <>
-                                <Button type="submit" disabled={!canSubmit}>
-                                    {isSubmitting ? '...' : 'Kritz'}
-                                </Button>
-                            </>
+                            <Button type="submit" disabled={!canSubmit} fullWidth={true} variant={'contained'}>
+                                {isSubmitting ? 'Validating...' : 'Kritz'}
+                            </Button>
                         )}
                     />
-                </div>
-                <InlineCodeBlock>{results}</InlineCodeBlock>
-            </form>
-        </>
+                </Grid>
+                <Grid size={12}>{results}</Grid>
+            </Grid>
+        </form>
     );
 };

@@ -1,10 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-export const HashAvatar = ({ src }: { src: string }) => {
+export const HashAvatar = ({ hash }: { hash: string }) => {
     return (
-        <Avatar>
-            <AvatarImage src={src} />
-            <AvatarFallback>Profile</AvatarFallback>
-        </Avatar>
+        <div>
+            <img src={`https://avatars.fastly.steamstatic.com/${hash}_full.jpg`} alt={'Player profile'} title={hash} />
+        </div>
     );
 };
