@@ -8,7 +8,7 @@
     "build": "vite build && tsc",
     "serve": "vite preview",
     "test": "vitest run",
-    "schema": "bunx openapi-typescript ./schema.json -o src/schema.ts",
+    "schema": "bunx openapi-typescript http://0.0.0.0:8888/swagger/openapi.json -o src/schema.ts",
     "prettier": "npx prettier . --write",
     "check": "npx prettier .--check",
     "eslint-config-prettier": "npx eslint-config-prettier src/main.tsx"
@@ -20,9 +20,11 @@
     "@mui/material": "^7.0.2",
     "@node-steam/id": "^1.2.0",
     "@tanstack/react-form": "^1.8.0",
+    "@tanstack/react-query": "^5.74.11",
     "@tanstack/react-router": "^1.114.3",
     "@tanstack/react-router-devtools": "^1.114.3",
     "@tanstack/router-plugin": "^1.114.3",
+    "date-fns": "^4.1.0",
     "openapi-fetch": "^0.13.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

@@ -12,7 +12,7 @@ interface OmniQueryValues {
 }
 
 const defaultQuery: OmniQueryValues = {
-    query: 'https://steamcommunity.com/id/b4nny/'
+    query: '76561197960278017' //https://steamcommunity.com/id/b4nny/'
 }; // 76561197970669109
 
 const regexSteamVanityURL = new RegExp('^https:\\/\\/steamcommunity.com\\/id\\/([abcdefghijklmnopqrstuvwxyz0-9]{2,})');
@@ -110,7 +110,7 @@ export const OmniQuery = () => {
                                 const lvalue = value.toLowerCase();
 
                                 if (lvalue.startsWith('')) {
-                                    if (!/[abcdefghijklmnopqrstuvwxyz]{2,}/.test(value)) {
+                                    if (!/[abcdefghijklmnopqrstuvwxyz0-9]{2,}/.test(value)) {
                                         return '2 alpha numeric characters minimum';
                                     }
 

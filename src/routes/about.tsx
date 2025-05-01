@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { Grid, Typography } from '@mui/material';
 
 export const Route = createFileRoute('/about')({
     component: App
@@ -6,10 +7,10 @@ export const Route = createFileRoute('/about')({
 
 function App() {
     return (
-        <div className="text-center ">
-            <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
-                About
-            </header>
-        </div>
+        <Grid container>
+            <Grid size={12}>
+                <Typography variant={'h1'}>About</Typography>
+            </Grid>
+        </Grid>
     );
 }

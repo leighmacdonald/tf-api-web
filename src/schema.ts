@@ -1020,10 +1020,6 @@ export interface components {
         SteamIDQueryParam: {
             steamid?: string;
         };
-        /** @description SteamIDsQueryParam schema */
-        SteamIDsQueryParam: {
-            steamids?: string;
-        };
         /** @description Summary schema */
         Summary: {
             avatar?: string;
@@ -1730,12 +1726,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        /** @description Request body for shared.SteamIDsQueryParam */
-        requestBody: {
-            content: {
-                "*/*": components["schemas"]["SteamIDsQueryParam"];
-            };
-        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {
@@ -1787,12 +1778,7 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description Request body for shared.SteamIDQueryParam */
-        requestBody: {
-            content: {
-                "*/*": components["schemas"]["SteamIDQueryParam"];
-            };
-        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {

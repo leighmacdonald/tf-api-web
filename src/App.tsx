@@ -1,17 +1,27 @@
 import type { PropsWithChildren } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
+const darkTheme = responsiveFontSizes(createTheme({
+    typography: {
+        // In Chinese and Japanese the characters are usually larger,
+        // so a smaller fontsize may be appropriate.
+        fontSize: 12
     },
-});
+    palette: {
+        mode: 'dark'
+    }
+}));
 
-export const App = ({children}: PropsWithChildren) => {
+
+const queryClient = new QueryClient();
+
+export const App = ({ children }: PropsWithChildren) => {
     return <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-
-        {children}
-    </ThemeProvider>
-}
+        <QueryClientProvider client={queryClient}>
+            {children}
+        </QueryClientProvider>
+    </ThemeProvider>;
+};

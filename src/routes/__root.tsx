@@ -8,8 +8,6 @@ import { TopNav } from '@/components/TopNav.tsx';
 export const Route = createRootRoute({
     component: () => (
         <>
-
-
             <Container>
                 <Stack spacing={3}>
                     <TopNav />

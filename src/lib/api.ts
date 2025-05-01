@@ -34,3 +34,18 @@ export const steamSummary = async (query: string) => {
 
     return data;
 };
+
+export const sourcebansEntries = async (steamid: string) => {
+    const { data, error } = await client.GET(`/api/sourcebans/{steamid}`, {
+        params: {
+            path: {
+                steamid: steamid
+            }
+        }
+    });
+    if (error) {
+        throw error;
+    }
+
+    return data;
+};
