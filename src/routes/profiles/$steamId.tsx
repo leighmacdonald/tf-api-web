@@ -1,21 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { sourcebansEntries, steamSummary } from '@/lib/api.ts';
+import { steamSummary } from '@/lib/api.ts';
 import { HashAvatar } from '@/components/HashAvatar.tsx';
 import {
-    CircularProgress,
     Grid,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
     Typography
 } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { format } from 'date-fns';
-import { useQuery } from '@tanstack/react-query';
+import { SourcebansTable } from '@/components/SourcebansTable.tsx';
+import { BDTable } from '@/components/BDTable.tsx';
 
 export const Route = createFileRoute('/profiles/$steamId')({
     component: ProfilePage,
@@ -40,44 +34,6 @@ const AccountAge = ({ age }: { age?: number }) => {
     }
 
     return <Typography>{format(new Date(age * 1000), 'dd-MM-yyyy')}</Typography>;
-};
-
-const SourcebansTable = ({ steamid }: { steamid: string }) => {
-    const { isPending, error, data } = useQuery({
-        queryKey: ['sourcebans', steamid],
-        queryFn: async () => {
-            return await sourcebansEntries(steamid) ?? [];
-        }
-    });
-
-    if (isPending) {
-        return <CircularProgress />;
-    }
-
-    if (error) {
-        return <Typography variant={'body1'}>{error.message}</Typography>;
-    }
-
-    if (!data) {
-        return <></>;
-    }
-
-    return <TableContainer>
-        <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell></TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {data.map((row) => (
-                    <TableRow>
-                        <TableCell>{row.reason}</TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    </TableContainer>;
 };
 
 
@@ -108,12 +64,25 @@ function ProfilePage() {
             </Paper>
 
             <div>
-                <Typography variant={'h5'}>Sourcebans</Typography>
+                <Typography variant={'h3'} textAlign={'center'} padding={2}>Sourcebans</Typography>
                 <Paper>
                     <Grid container spacing={2}>
                         <Grid container spacing={2} padding={2}>
                             <Grid size={'auto'}>
                                 <SourcebansTable steamid={summary.steamid as string} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </div>
+
+            <div>
+                <Typography variant={'h3'} textAlign={'center'} padding={2}>Bot Detector Lists</Typography>
+                <Paper>
+                    <Grid container spacing={2}>
+                        <Grid container spacing={2} padding={2}>
+                            <Grid size={'auto'}>
+                                <BDTable steamid={summary.steamid as string} />
                             </Grid>
                         </Grid>
                     </Grid>

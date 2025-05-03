@@ -1016,6 +1016,26 @@ export interface components {
                 steamid?: unknown;
             };
         };
+        /** @description SiteBanRecord schema */
+        SiteBanRecord: {
+            ban_id?: number;
+            /** Format: date-time */
+            created_on?: string;
+            /** Format: date-time */
+            expires_on?: string;
+            /** Format: date-time */
+            invoked_on?: string;
+            permanent?: boolean;
+            persona_name?: string;
+            reason?: string;
+            site_id?: number;
+            site_name?: string;
+            steam_id?: unknown;
+            unban_reason?: string;
+            unbanned?: boolean;
+            /** Format: date-time */
+            updated_on?: string;
+        };
         /** @description SteamIDQueryParam schema */
         SteamIDQueryParam: {
             steamid?: string;
@@ -1734,8 +1754,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["BanRecord"][];
-                    "application/xml": components["schemas"]["BanRecord"][];
+                    "application/json": components["schemas"]["SiteBanRecord"][];
+                    "application/xml": components["schemas"]["SiteBanRecord"][];
                 };
             };
             /** @description Bad Request _(validation or deserialization error)_ */
@@ -1786,8 +1806,8 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["BanRecord"][];
-                    "application/xml": components["schemas"]["BanRecord"][];
+                    "application/json": components["schemas"]["SiteBanRecord"][];
+                    "application/xml": components["schemas"]["SiteBanRecord"][];
                 };
             };
             /** @description Bad Request _(validation or deserialization error)_ */

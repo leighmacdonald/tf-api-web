@@ -34,12 +34,42 @@ export const steamSummary = async (query: string) => {
 
     return data;
 };
+export const steamFriends = async (query: string) => {
+    const { data, error } = await client.GET('/api/steam/friends', {
+        params: {
+            query: {
+                steamid: query
+            }
+        }
+    });
+    if (error) {
+        throw error;
+    }
+
+    return data;
+};
+
 
 export const sourcebansEntries = async (steamid: string) => {
     const { data, error } = await client.GET(`/api/sourcebans/{steamid}`, {
         params: {
             path: {
                 steamid: steamid
+            }
+        }
+    });
+    if (error) {
+        throw error;
+    }
+
+    return data;
+};
+
+export const bdEntries = async (steamid: string) => {
+    const { data, error } = await client.GET(`/api/bd/query`, {
+        params: {
+            query: {
+                steamids: steamid
             }
         }
     });
